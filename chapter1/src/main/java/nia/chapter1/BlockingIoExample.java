@@ -27,14 +27,17 @@ public class BlockingIoExample {
         String request, response;
         while ((request = in.readLine()) != null) {
             if ("Done".equals(request)) {
+                System.out.println("breaking");
                 break;
             }
             response = processRequest(request);
             out.println(response);
         }
+        System.out.printf("DONE");
     }
 
     private String processRequest(String request){
+        System.out.println(request);
         return "Processed";
     }
 }
