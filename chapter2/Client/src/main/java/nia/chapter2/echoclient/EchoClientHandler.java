@@ -15,12 +15,13 @@ import io.netty.util.CharsetUtil;
 @Sharable
 public class EchoClientHandler
     extends SimpleChannelInboundHandler<ByteBuf> {
+//    channelActive() —Called after the connection to the server is established
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
         ctx.writeAndFlush(Unpooled.copiedBuffer("Netty rocks!",
                 CharsetUtil.UTF_8));
     }
-
+    //channelRead0() —Called when a message is received from the server
     @Override
     public void channelRead0(ChannelHandlerContext ctx, ByteBuf in) {
         System.out.println(

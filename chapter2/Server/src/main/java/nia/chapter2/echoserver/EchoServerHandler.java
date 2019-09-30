@@ -16,6 +16,7 @@ import io.netty.util.CharsetUtil;
  */
 @Sharable
 public class EchoServerHandler extends ChannelInboundHandlerAdapter {
+    //channelRead() —Called for each incoming message
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         ByteBuf in = (ByteBuf) msg;
@@ -31,7 +32,7 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
                 "Content-Type: text/html\n\n", CharsetUtil.UTF_8));
         ctx.write(in);
     }
-
+//channelReadComplete() —Notifies the handler that the last call made to channelRead() was the last message in the current batch
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx)
             throws Exception {
@@ -39,6 +40,10 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
                 .addListener(ChannelFutureListener.CLOSE);
     }
 
+
+    //What happens if an exception isn’t caught?
+    //
+    //Every Channel has an associated ChannelPipeline, which holds a chain of ChannelHandler instances. By default, a handler will forward the invocation of a handler method to the next one in the chain. Therefore, if exceptionCaught() is not implemented somewhere along the chain, exceptions received will travel to the end of the ChannelPipeline and will be logged. For this reason, your application should supply at least one ChannelHandler that implements exceptionCaught().
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx,
         Throwable cause) {
