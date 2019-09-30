@@ -22,7 +22,6 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
         ByteBuf in = (ByteBuf) msg;
         System.out.println(
                 "Server received: " + in.toString(CharsetUtil.UTF_8));
-        ctx.write(Unpooled.copiedBuffer("HTTP/1.1 200 OK\n\n\n", CharsetUtil.UTF_8));
         ctx.write(in);
     }
 //channelReadComplete() —Notifies the handler that the last call made to channelRead() was the last message in the current batch

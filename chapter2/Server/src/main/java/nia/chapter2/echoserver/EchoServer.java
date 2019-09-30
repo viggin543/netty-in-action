@@ -44,7 +44,9 @@ public class EchoServer {
                 .childHandler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     public void initChannel(SocketChannel ch) throws Exception {
-                        ch.pipeline().addLast(new EchoServerHandler());
+                        ch.pipeline()
+                                .addLast(new HttpResponseHandler())
+                                .addLast(new EchoServerHandler());
                     }
                 });
 
