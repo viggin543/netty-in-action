@@ -18,8 +18,12 @@ public class EchoClientHandler
 //    channelActive() —Called after the connection to the server is established
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
-        ctx.writeAndFlush(Unpooled.copiedBuffer("Netty rocks!",
-                CharsetUtil.UTF_8));
+        System.out.println("connected to icndb");
+        ctx.writeAndFlush(
+                Unpooled.copiedBuffer("GET /jokes/random HTTP/1.1\n" +
+                        "Host: api.icndb.com\n" +
+                        "User-Agent: curl/7.54.0\n" +
+                        "Accept: */*\n\n", CharsetUtil.UTF_8));
     }
     //channelRead0() —Called when a message is received from the server
     @Override

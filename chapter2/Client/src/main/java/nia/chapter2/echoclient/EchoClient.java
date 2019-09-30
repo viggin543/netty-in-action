@@ -7,6 +7,10 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.http.HttpRequestDecoder;
+import io.netty.handler.codec.http.HttpResponseDecoder;
+import io.netty.handler.codec.json.JsonObjectDecoder;
+import io.netty.handler.proxy.HttpProxyHandler;
 
 import java.net.InetSocketAddress;
 
@@ -36,8 +40,10 @@ public class EchoClient {
                     @Override
                     public void initChannel(SocketChannel ch)
                         throws Exception {
-                        ch.pipeline().addLast(
-                             new EchoClientHandler());
+                        ch.pipeline()
+//                                .addLast(new HttpResponseDecoder())
+//                                .addLast(new JsonDecoder())
+                                .addLast(new EchoClientHandler());
                     }
                 });
             ChannelFuture f = b.connect().sync();
